@@ -56,7 +56,7 @@ namespace A4_Lib
       typedef typename std::unordered_map <The_Key_Class, The_Data_Class> Map_Type; 
       typedef typename std::unordered_map <The_Key_Class, The_Data_Class>::iterator    Iterator; /**< type returned from Begin and End methods */
       
-    public: // methods
+    public: // methods     
 /**
  * @brief Update the_data for an \b existing key 
  * @param the_key - IN - must exist in the map
@@ -279,6 +279,10 @@ namespace A4_Lib
         return the_method_error.Get_Error_Code(); 
       } // Begin 
       
+/**
+ * @brief Return the map end() iterator - no mutex testing is done here.
+ * @return end()
+ */      
       Iterator  End(void)
       { // begin
         return this->map.end();
