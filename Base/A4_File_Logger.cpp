@@ -40,10 +40,13 @@
 
 #include <iostream>
 #include <cstdio>
+#include <cstdarg>
 
 #ifdef A4_Lib_Windows
   #include "A4_Win_Helper.hh"
 #endif
+
+
 /**
  * \brief default constructor
  */
@@ -562,7 +565,7 @@ Error_Code  A4_Lib::File_Logger::Handle_Timeout (void)
 { // begin
   std::time_t  the_time = 0;
   
-  Method_State_Block_Begin(1)
+  Method_State_Block_Begin(3)
     State(1) // first address any base class admin.
       the_method_error = this->Active_Object::Handle_Timeout();
     End_State
@@ -766,13 +769,13 @@ Error_Code  A4_Lib::File_Logger::Write(std::string       the_log_text,
  */
 Error_Code A4_Lib::File_Logger::Write (std::string       the_log_text,
                                        Logging::Detail   the_message_detail_level)
-{
+{ // begin
   Method_State_Block_Begin(2)
     State(1)   
       if (the_log_text.length() < 1)
       { // no text to write
         std::cout << "Invalid parameter calling A4_Lib::File_Logger::Write(string, Detail) - the_log_text was emoty.";
-        Terminate_The_Method_Block;
+        the_method_error = A4_Error (A4_Log_Module_ID, W2_Invalid_Text_Length, "Invalid parameter length - the_log_text is empty.");
       } // if then
     End_State
           
@@ -786,6 +789,47 @@ Error_Code A4_Lib::File_Logger::Write (std::string       the_log_text,
   return the_method_error.Get_Error_Code();  
 } // Write
 
+/**
+ * @brief Write a log entry that contains a variable number of arguments.
+ * @param the_message_detail_level - IN
+ * @param the_log_text - IN - the text to be formatted
+ * @param ... - IN - the variable list to be used
+ * @return No_Error, W3_Invalid_Text_Length
+ */
+Error_Code    A4_Lib::File_Logger::Write (A4_Lib::Logging::Detail    the_message_detail_level,
+                                          std::string                the_log_text, 
+                                          ...)
+{ // begin
+  std::string the_formatted_text;
+  
+  va_list the_va_list;  
+  
+  Method_State_Block_Begin(3)
+    State(1)  
+      if (the_log_text.length() < 1)
+      { // no text to write
+        the_method_error = A4_Error (A4_Log_Module_ID, W3_Invalid_Text_Length, "Invalid parameter length - the_log_text is empty.");
+        std::cout << "Invalid parameter calling A4_Lib::File_Logger::Write(string, Detail) - the_log_text was emoty.";
+      } // if then          
+    End_State
+          
+    State(2)
+      if (((the_message_detail_level > this->Get_Detail_Level()) && (the_message_detail_level != A4_Lib::Logging::Module_Specific)) || (this->Is_Closing() == true))  // always want to see the module-specific stuff
+        Terminate_The_Method_Block; // message doesn't need logging  
+      else { // format the_log_text
+        va_start (the_va_list, the_log_text);
+          the_method_error = A4_Lib::SNPrintf (the_formatted_text, the_log_text, A4_Lib::Max_Error_Message_Length, the_va_list);
+        va_end (the_va_list); 
+      } // if else
+    End_State
+              
+    State(3)
+      the_method_error = this->Format_and_Enque_Message (the_formatted_text, the_message_detail_level);            
+    End_State
+  End_Method_State_Block
+
+  return the_method_error.Get_Error_Code();  
+} // Write (variadic)
 /**
  * \brief synchronousy write this->log_file
  * @param the_log_message - IN

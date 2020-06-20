@@ -60,9 +60,9 @@ namespace A4_Lib
                                             Method_State       the_state,
                                             Logging::Detail    the_message_detail_level);  
 
-     A4_Export Error_Code    Write (Logging::Detail    the_message_detail_level,
-                                    std::string        the_log_text,
-                                    ...);
+     A4_Export virtual Error_Code    Write (Logging::Detail    the_message_detail_level,
+                                            std::string        the_log_text,
+                                            ...);
      
      A4_Export virtual Error_Code Write (std::string       the_log_text,
                                          Logging::Detail   the_message_detail_level);

@@ -42,6 +42,7 @@ namespace Message_Block_Constants
   static const Error_Offset Get_Uint64_Error_Offset = 400; 
   static const Error_Offset Get_Double_Error_Offset = 500; 
   static const Error_Offset Get_Long_Double_Error_Offset = 600;   
+  static const Error_Offset Get_time_t_Error_Offset = 700;
 } // namespace Message_Block_Constants
 
 /**
@@ -296,6 +297,32 @@ Error_Code Message_Block::Set_Data (std::uint64_t  the_data,
     
   return the_method_error.Get_Error_Code();
 } // Set_Data (uint64_t)
+
+Error_Code Message_Block::Get_Data (std::time_t    &the_data,
+                                    Vector_Offset  the_vector_offset)
+{ // begin
+  Method_State_Block_Begin(1)
+    State(1) 
+      the_method_error = Get_Data_T<std::time_t, Message_Block_Constants::Get_time_t_Error_Offset>(the_data, the_vector_offset, this->data_vector, this->data_length_vector, *this);
+    End_State
+  End_Method_State_Block
+    
+  return the_method_error.Get_Error_Code();
+} // Get_Data 
+
+    
+Error_Code Message_Block::Set_Data (std::time_t    the_data,
+                                    Vector_Offset  the_vector_offset)
+{ // begin
+  Method_State_Block_Begin(1)
+    State(1) 
+      the_method_error = this->Set_Data (&the_data, the_vector_offset, sizeof (std::time_t));
+    End_State
+  End_Method_State_Block
+    
+  return the_method_error.Get_Error_Code();
+} // Set_Data - std::time_t 
+
 
 Error_Code Message_Block::Get_Data (double         &the_data,
                                     Vector_Offset  the_vector_offset)

@@ -147,7 +147,7 @@ Error_Code  Active_Object::Set_Active(bool  the_active_state)
  * @return 
  */
 Error_Code  Active_Object::Enqueue_Message(A4_Lib::Message_Block::Pointer   &the_message_block,
-                                           bool                             is_high_prio_prepend)
+                                         bool                             is_high_prio_prepend)
 { // begin
   Method_State_Block_Begin(1)
     State(1)  
@@ -162,9 +162,9 @@ Error_Code  Active_Object::Enqueue_Message(A4_Lib::Message_Block::Pointer   &the
 
 /**
 *  @brief Initialize this instance
-*  @param the_number_of_worker_threads - IN - the number of threads activated in the pool
-*  @param the_message_queue_wait - IN - a non-zero value indicating the maximum number of milli-seconds to wait for a message to appear in the queue.
-*  @param the_maximum_queued_items - IN - The maximum number of messages allowed in the message queue before it blocks.
+*  @param the_number_of_worker_threads - IN - must be >= Active_Object_Constant::Min_Num_Threads
+*  @param the_message_queue_wait - IN - a non-zero value indicating the maximum number of milli-seconds to wait for a message to appear in the queue. Must be >=  Min_Message_Queue_Wait_MS.
+*  @param the_maximum_queued_items - IN - The maximum number of messages allowed in the message queue before it blocks. Must be >= Active_Object_Constant::Min_Queued_Messages
 */
 Error_Code  Active_Object::Initialize(std::size_t    the_number_of_worker_threads,
                                       std::uint64_t  the_message_queue_wait,

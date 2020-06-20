@@ -30,13 +30,8 @@
 */
 #include "A4_Message_Block.hh"
 
-/**< \todo see if there is an alternative for constexpr */
-#define Make_A4_Lib_Observer_Hint(module_id, hint_offset)(static_cast<A4_Lib::Observer::Hint>(module_id) << 16) + static_cast<A4_Lib::Observer::Hint>(hint_offset)
-
-
 namespace A4_Lib
 { // begin
-
 typedef class Observer
 { // begin
 public: // construction
@@ -48,10 +43,10 @@ public: // types
   typedef std::uint16_t Hint_Offset;
  
   typedef std::shared_ptr<Observer>   Pointer;
-  
+
 public: // methods
-  static inline const Hint Make_Hint(const Module_ID   the_module_id,
-                                     const Hint_Offset the_hint_offset){return (const Hint) (static_cast<const A4_Lib::Observer::Hint>(the_module_id) << 16) + static_cast<const A4_Lib::Observer::Hint>(the_hint_offset);};
+  static inline constexpr Hint Make_Hint(const Module_ID   the_module_id,
+                                         const Hint_Offset the_hint_offset) {return (static_cast<const A4_Lib::Observer::Hint>(the_module_id) << 16) + static_cast<const A4_Lib::Observer::Hint>(the_hint_offset);};
     
   static double Make_Hint_Dot (Observer::Hint  the_hint);
   

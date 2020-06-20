@@ -83,6 +83,10 @@ namespace A4_Lib
       A4_Export virtual Error_Code Write (std::string       the_log_text,
                                           Logging::Detail   the_message_detail_level) override;
       
+      A4_Export virtual Error_Code Write (A4_Lib::Logging::Detail    the_message_detail_level,
+                                          std::string                the_log_text,
+                                          ...) override;
+      
       virtual Error_Code  Open (std::string        the_log_filespec,
                                 Logging::Detail	   the_log_level = Logging::Debug,
                                 std::uint16_t      max_log_archive_days = File_Logger_Constants::Default_Log_Archive_Days, // number of days the logs will be saved before deletion
@@ -123,7 +127,7 @@ namespace A4_Lib
       Error_Code  Internal_Write (std::string   &the_log_message);
       
     private: // data
-      std::FILE                 *log_file; /**< The file instance that will be appended with new log entries */
+      std::FILE                 *log_file; /**< The file instance that will be appended with new log entries - deliberately \b not a unique_ptr */
       A4_Lib::Recursive_Mutex   log_file_mutex; /**< Keeps this->log_file thread safe */
       
       A4_Lib::String_Vector	filespec_vector; /**< splits the filespec into folders / filename.ext */
@@ -167,6 +171,8 @@ namespace A4_Lib
         CLF_fclose_Error                  = 12, /**< \b Close_Log_File: all to std::fclose resulted in error */
         IW_Log_File_Not_Open              = 13, /**< \b Internal_Write: Invalid state - the log file is not open. */
         IW_FWrite_Error                   = 14, /**< \b Internal_Write: Call to std::fwrite failed - enough storage space? */
+        W2_Invalid_Text_Length            = 15, /**< \b Write (2-parameter): Invalid parameter length - the_log_text is empty. */
+        W3_Invalid_Text_Length            = 16, /**< \b Write (variadic): Invalid parameter length - the_log_text is empty. */
       }; // File_Logger_Errors
   } File_Logger;
 } // namespace A4_Lib

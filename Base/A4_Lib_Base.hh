@@ -26,10 +26,8 @@
 * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
- */
+*/
 
-//#include <sql.h>
-//#include <sqlext.h>
 #include <stdint.h>
 #include <cstddef>
 #include <sstream>
@@ -59,6 +57,9 @@ typedef std::int64_t  ssize_t;
 #define A4_mbstowcs std::mbstowcs
 #define A4_isspace(x)  std::isspace<char>(x, std::locale::classic())
 
+  #ifdef A4_Use_Wide_String
+    #error  "A4_Use_Wide_String should only be used for Windows builds. "
+  #endif
 #endif  
 
 typedef std::uint64_t  Error_Code; // top 6-bytes are reserved for Module, lower 2-bytes for the model-specific error offset. This definition will need changing if > 64K errors/module are needed.
@@ -148,6 +149,7 @@ namespace A4_Lib
   const std::size_t     Max_Error_Message_Length = 2048;
 
   static const std::time_t One_Day_In_Seconds = 86400;
+  typedef std::vector <std::uint8_t *>	  Byte_Ptr_Vector; /**< @todo see about changing this into a std::unique_ptr */
   
   namespace Logging
   { // begin

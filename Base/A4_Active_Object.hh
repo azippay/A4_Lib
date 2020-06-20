@@ -48,12 +48,6 @@ namespace A4_Lib
     static const std::size_t    Min_Queued_Messages = 10; /**< There needs to be some wiggle room - not recommened setting the queue backlog to less than this amount */
   } // namespace Active_Object_Constant
 
-  /**
-   * @class Active_Object
-   * @brief Active Object - Implements a bare-bones, multi-threaded, general purpose Active Object interface.
-   * @param The_Module_ID - The \b Module_ID of the subclass - this should follow the A4 Idiom rules of being system-wide unique.
-   * @param The_Error_Offset - This value must be \b greater \b than \b zero and The_Error_Offset \b mod 100 == \b zero.
-   */
   typedef class Active_Object
   { // begin definition
   public: // construction         
@@ -84,9 +78,9 @@ namespace A4_Lib
 
   #ifndef A4_DotNet
   protected: // overridables
-    virtual   Error_Code  Process_Message (A4_Lib::Message_Block::Pointer   &the_message_block); // <-- Must be overridden to process implementation-specific messages.
+    virtual   Error_Code  Process_Message (A4_Lib::Message_Block::Pointer   &the_message_block); /**< \b Must be overridden to process implementation-specific messages. */
 
-    virtual   Error_Code  Handle_Timeout (void);  // <-- called when no messages need to be processed
+    virtual   Error_Code  Handle_Timeout (void);  /**< called when no messages need to be processed */
 
   private:
     Error_Code  Worker_Thread_Method (void); // performs default message queue handling - the number of active threads is configurable

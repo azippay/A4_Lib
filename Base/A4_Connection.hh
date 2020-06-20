@@ -29,14 +29,12 @@
 */
 
 #include "A4_Lib_Base.hh"
-#include "A4_Network_Base.hh"
+
 
 #include <memory>
 
 namespace A4_Lib
 { // begin
-  namespace Network
-  { // begin
     /**
      * @brief  Base class for all Connection types (Data, Neural, Emotional, etc)
      */
@@ -47,7 +45,9 @@ namespace A4_Lib
       virtual ~Connection(void);
       
     public: // types
-      typedef std::shared_ptr<Connection>  Pointer;
+      typedef std::shared_ptr<Connection>   Pointer;
+      typedef std::uint64_t                 Connection_ID;
+      static const Connection_ID            Invalid_Connection_ID = 0;
       
     public: // methods
       Connection_ID   Get_Connection_ID (void) const;
@@ -70,7 +70,6 @@ namespace A4_Lib
         I_Already_Initialized         = 1, /**< This instance is already initialized. */
       }; // Connection_Errors
     } Connection;
-  } // namespace Network
 } // namespace A4_Lib
 
 #endif // __A4_Connection_Defined__

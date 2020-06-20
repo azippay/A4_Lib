@@ -38,18 +38,18 @@ using namespace A4_Lib;
 /**
  * \brief default constructor
  */
-A4_Lib::Network::Connection::Connection(void)
+Connection::Connection(void)
 { // begin
-  this->connection_id = A4_Lib::Network::Invalid_Connection_ID;
+  this->connection_id = Invalid_Connection_ID;
   this->is_initialized = false;
 } // constructor
 
 /**
  * \brief Default destructor.
  */
-A4_Lib::Network::Connection::~Connection(void)
+Connection::~Connection(void)
 { // begin
-  this->connection_id = A4_Lib::Network::Invalid_Connection_ID;
+  this->connection_id = Invalid_Connection_ID;
   this->is_initialized = false;
 } // destructor
 
@@ -58,11 +58,11 @@ A4_Lib::Network::Connection::~Connection(void)
  * @param the_connection_id
  * @return No_Error, SCI_Invalid_Connection_ID
  */
-Error_Code  A4_Lib::Network::Connection::Set_Connection_ID (A4_Lib::Network::Connection_ID  the_connection_id)
+Error_Code  Connection::Set_Connection_ID (Connection_ID  the_connection_id)
 { // begin
   Method_State_Block_Begin(1)
     State(1)
-      if (the_connection_id == A4_Lib::Network::Invalid_Connection_ID)
+      if (the_connection_id == Invalid_Connection_ID)
         the_method_error = A4_Error (A4_Connection_Module_ID, SCI_Invalid_Connection_ID, "Invalid parameter value - the_connection_id");
     End_State
   End_Method_State_Block
@@ -74,7 +74,7 @@ Error_Code  A4_Lib::Network::Connection::Set_Connection_ID (A4_Lib::Network::Con
  * \brief Retrieve the current Connection_ID
  * @return this->connection_id value
  */
-A4_Lib::Network::Connection_ID   A4_Lib::Network::Connection::Get_Connection_ID (void) const
+Connection::Connection_ID   Connection::Get_Connection_ID (void) const
 { // begin
   return this->connection_id;
 } // Get_Connection_ID
@@ -83,7 +83,7 @@ A4_Lib::Network::Connection_ID   A4_Lib::Network::Connection::Get_Connection_ID 
  * @brief Initialize this base instance
  * @return No_Error, I_Already_Initialized
  */
-Error_Code  A4_Lib::Network::Connection::Initialize(void)
+Error_Code  Connection::Initialize(void)
 { // begin
   Method_State_Block_Begin(1)
     State(1) 
@@ -100,7 +100,7 @@ Error_Code  A4_Lib::Network::Connection::Initialize(void)
  * 
  * @return the current initialization state
  */
-bool A4_Lib::Network::Connection::Is_Initialized(void) const
+bool Connection::Is_Initialized(void) const
 {
   return this->is_initialized;
 }

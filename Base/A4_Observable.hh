@@ -52,17 +52,17 @@ namespace A4_Lib
     ~Observable(void);
     
   public: // methods
-    Error_Code	Register_Observer (A4_Lib::Observer	      *the_observer_instance); // C pointers
-    Error_Code	Register_Observer (A4_Lib::Observer::Pointer  the_observer_instance);
+    Error_Code	Register_Observer (Observer	      *the_observer_instance); // C pointers
+    Error_Code	Register_Observer (Observer::Pointer  the_observer_instance);
 
-    Error_Code	Unregister_Observer (A4_Lib::Observer           *the_observer_instance); // C pointers
-    Error_Code	Unregister_Observer (A4_Lib::Observer::Pointer  the_observer_instance);
+    Error_Code	Unregister_Observer (Observer           *the_observer_instance); // C pointers
+    Error_Code	Unregister_Observer (Observer::Pointer  the_observer_instance);
 
     Error_Code	Notify_Observers (std::uint64_t           the_data,
-                                    A4_Lib::Observer::Hint  the_hint = 0);
+                                  Observer::Hint  the_hint = 0);
 
-    Error_Code	Notify_Observers (A4_Lib::Message_Block::Pointer   the_msg_block,
-                                    A4_Lib::Observer::Hint           the_hint = 0);
+    Error_Code	Notify_Observers (Message_Block::Pointer   the_msg_block,
+                                  Observer::Hint           the_hint = 0);
 
   public: // types
     typedef std::shared_ptr <Observable_Entry>  Observable_Entry_Pointer;
@@ -70,7 +70,6 @@ namespace A4_Lib
     
   #ifndef A4_DotNet
   private: // data
-    //Mutex       notification_mutex; // protects the observer_map
     Map_Type    observer_map;
 
     bool        is_initialized;
@@ -99,7 +98,6 @@ namespace A4_Lib
       A_Allocation_Error                = 17,
       ROSP_Duplicate_Observer2          = 18,
       NO_Invalid_Entry_Address2         = 19,
-      //NO_Invalid_Observer_Address2      = 20,
     }; // end Observable_Errors
   } Observable;
 

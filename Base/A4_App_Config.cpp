@@ -1,7 +1,7 @@
 /**
  * \brief Application configuration file. 
- * \author a. zippay * 2017
- * 
+ * \author a. zippay * 2017..2020
+ * \file A4_App_Config.cpp
  * \note  This Active Object will periodically reload the configuration file. Any Observers will be Notified.
  *
  * The MIT License
@@ -23,8 +23,8 @@
 * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
- * 
- */
+* 
+*/
 
 #ifdef A4_Lib_Windows
 #include "Stdafx.h"

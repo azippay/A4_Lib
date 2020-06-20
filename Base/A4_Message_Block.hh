@@ -66,7 +66,7 @@ namespace A4_Lib
     Error_Code Set_Data (std::string   the_string,
                          Vector_Offset  the_vector_offset = 0);
     
-    Error_Code Get_Data (std::string   &the_data,
+    Error_Code Get_Data (std::string    &the_data,
                          Vector_Offset  the_vector_offset = 0); 
     
     Error_Code Get_Data (std::uint8_t   &the_data,
@@ -105,6 +105,12 @@ namespace A4_Lib
     Error_Code Set_Data (long double    the_data,
                          Vector_Offset  the_vector_offset = 0);  
     
+    Error_Code Get_Data (std::time_t    &the_data,
+                         Vector_Offset  the_vector_offset = 0);
+    
+    Error_Code Set_Data (std::time_t    the_data,
+                         Vector_Offset  the_vector_offset = 0);
+    
 // C style pointers passed here...    
     Error_Code  Set_Data (void	         *the_data,
                           Vector_Offset  the_vector_offset,
@@ -136,16 +142,16 @@ namespace A4_Lib
   public: // errors
     enum Message_Block_Errors
     { // begin
-      SD_Invalid_Num_Bytes            = 0, /**< \b Set_Data: Invalid parameter value - the_max_data_length must be > zero. */
-      SD_Invalid_Data_Address         = 1, /**< \b Set_Data: Invalid parameter address - the_data is NULL */
-      GD_Invalid_Data_Address         = 2, /**< \b Get_Data: Invalid parameter address - the_data is NULL */
-      GD_Invalid_Byte_Offset          = 3, /**< \b Get_Data: Invalid parameter value - the_byte_offset is larger than this->data_length. */
-      GD_Invalid_Num_Bytes            = 4, /**< \b Get_Data: Invalid parameter value - the_max_data_length is smaller than this->data_length - your buffer is too small. */
-      GD_Invalid_Data_Length          = 5, /**< \b Get_Data: The data length at vector offset X is zero. This means the data stored was passed as a std::shared_ptr and must be retrieved the same way. */
-      SD_Invalid_Data_Address2        = 6, /**< \b Set_Data (share_ptr): Invalid parameter address - the_data == nullptr */
-      SD_Allocation_Error             = 7, /**< \b Set_Data (c-ptr):Memory allocation error - could not allocate X bytes for the new shared pointer. */
-      GD_Invalid_Offset               = 8, /**< \b Get_Data: Invalid parameter value - the_vector_offset X must be less than Y */
-      GCMB_Child_Not_Set              = 9, /**< \b Get_Child_Message_Block: No child message block has been Set, so none to Get. */
+      SD_Invalid_Num_Bytes            = 0,  /**< \b Set_Data: Invalid parameter value - the_max_data_length must be > zero. */
+      SD_Invalid_Data_Address         = 1,  /**< \b Set_Data: Invalid parameter address - the_data is NULL */
+      GD_Invalid_Data_Address         = 2,  /**< \b Get_Data: Invalid parameter address - the_data is NULL */
+      GD_Invalid_Byte_Offset          = 3,  /**< \b Get_Data: Invalid parameter value - the_byte_offset is larger than this->data_length. */
+      GD_Invalid_Num_Bytes            = 4,  /**< \b Get_Data: Invalid parameter value - the_max_data_length is smaller than this->data_length - your buffer is too small. */
+      GD_Invalid_Data_Length          = 5,  /**< \b Get_Data: The data length at vector offset X is zero. This means the data stored was passed as a std::shared_ptr and must be retrieved the same way. */
+      SD_Invalid_Data_Address2        = 6,  /**< \b Set_Data (share_ptr): Invalid parameter address - the_data == nullptr */
+      SD_Allocation_Error             = 7,  /**< \b Set_Data (c-ptr):Memory allocation error - could not allocate X bytes for the new shared pointer. */
+      GD_Invalid_Offset               = 8,  /**< \b Get_Data: Invalid parameter value - the_vector_offset X must be less than Y */
+      GCMB_Child_Not_Set              = 9,  /**< \b Get_Child_Message_Block: No child message block has been Set, so none to Get. */
       GCMB_Invalid_Address            = 10, /**< \b Get_Child_Message_Block: Invalid parameter state - the_child must equal nullptr - check for memory issue. */
       A_Allocation_Error              = 11, /**< \b Allocate: Memory allocation error - could not allocate a new Message_Block instance. */
       SCMB_Invalid_Child              = 12, /**< \b Set_Child_Message_Block: Invalid parameter value - the_child == nullptr */
